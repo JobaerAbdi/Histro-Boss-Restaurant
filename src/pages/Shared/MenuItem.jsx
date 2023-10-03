@@ -1,6 +1,6 @@
-const Menu = ({ menu }) => {
+const MenuItem = ({ item }) => {
   // console.log(menu);
-  const { image, name, recipe, price } = menu;
+  const { image, name, recipe, price } = item;
   return (
     <>
       <div className="flex space-x-5">
@@ -24,4 +24,4 @@ const Menu = ({ menu }) => {
   );
 };
 
-export default Menu;
+export default MenuItem;

@@ -4,11 +4,9 @@ const Navbar = () => {
   const navLink = (
     <>
       <Link to='/'><li className="mr-5">Home</li></Link>
-      <Link to='/category'><li className="mr-5">Category</li></Link>
-      <Link><li className="mr-5">Menu</li></Link>
-      <Link><li className="mr-5">Features</li></Link>
-      <Link><li className="mr-5">Testimonials</li></Link>
-      <Link><li className="mr-5">LogIn</li></Link>
+      <Link to='/menu'><li className="mr-5">Menu</li></Link>
+      <Link to='/order/offered'><li className="mr-5">Order</li></Link>
+      <Link to='/login'><li className="mr-5">LogIn</li></Link>
       <Link><li className="mr-5">LogOut</li></Link>
     </>
   );
