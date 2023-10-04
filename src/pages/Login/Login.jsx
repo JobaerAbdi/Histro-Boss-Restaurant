@@ -1,20 +1,43 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     LoadCanvasTemplate,
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const {logIn} = useContext(AuthContext);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
+    logIn(data.email, data.password)
+    .then(result=>{
+      const user = result.user
+      console.log(user);
+      reset();
+      Swal.fire({
+        position: 'top-center',
+        icon: 'success',
+        title: 'Login successful',
+        showConfirmButton: false,
+        timer: 1000
+      });
+      navigate('/')
+    })
+    .catch(error=>{
+      console.log(error.message);
+    })
   };
 
   return (
@@ -99,7 +122,7 @@ const Login = () => {
             </div>
           </form>
           <p className="mb-6 ml-6">
-            Are you new here? <Link to="/signup">Log In</Link>
+            Are you new here? <Link to="/signup">Sign Up</Link>
           </p>
         </div>
       </div>
