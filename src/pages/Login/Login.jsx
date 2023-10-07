@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
     LoadCanvasTemplate,
   loadCaptchaEnginge,
@@ -10,8 +10,12 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Login = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const {logIn} = useContext(AuthContext);
+
+  const from = location.state?.from?.pathname || "/";
+
   const {
     register,
     handleSubmit,
@@ -33,7 +37,7 @@ const Login = () => {
         showConfirmButton: false,
         timer: 1000
       });
-      navigate('/')
+      navigate(from, { replace: true });
     })
     .catch(error=>{
       console.log(error.message);

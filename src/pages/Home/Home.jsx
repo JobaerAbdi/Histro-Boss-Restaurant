@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import Banner from "./Banner";
 import Category from "./Category";
 import PopularMenu from "./PopularMenu";
@@ -6,6 +5,7 @@ import Contact from "./Contact";
 import MenuRecommends from "./MenuRecommends";
 import Features from "./Features";
 import Testimonials from "./Testimonials";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
