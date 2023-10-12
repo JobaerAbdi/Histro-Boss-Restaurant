@@ -7,6 +7,7 @@ import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  console.log(user);
   const navigate = useNavigate();
   const [cart, refetch] = useCart();
   
@@ -38,12 +39,22 @@ const Navbar = () => {
       <Link to="/order/offered">
         <li className="mr-5">Order</li>
       </Link>
+      <Link to="/dashboard">
+        <li className="mr-5">Dashboard</li>
+      </Link>
       <Link to="/">
+        <li className="mr-5">{user?.displayName}</li>
+      </Link>
+      <Link to="/">
+        <li className="mr-5">{user?.email}</li>
+      </Link>
+      <Link to="/dashboard/mycart">
         <button className="btn btn-sm mr-4 btn-primary">
           <FaCartPlus />
           <span className="badge badge-info mr-4">+{cart?.length || 0}</span>
         </button>
       </Link>
+      
 
       {/* {
             user ? <>

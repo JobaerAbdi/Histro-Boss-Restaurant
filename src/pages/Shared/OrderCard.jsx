@@ -32,7 +32,7 @@ const OrderCard = ({ item }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
-             refetch();
+            refetch();
             Swal.fire({
               position: "top-center",
               icon: "success",

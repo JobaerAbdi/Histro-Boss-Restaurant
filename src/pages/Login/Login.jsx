@@ -8,6 +8,7 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/socialLogin";
 
 const Login = () => {
   const location = useLocation();
@@ -128,6 +129,7 @@ const Login = () => {
           <p className="mb-6 ml-6">
             Are you new here? <Link to="/signup">Sign Up</Link>
           </p>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

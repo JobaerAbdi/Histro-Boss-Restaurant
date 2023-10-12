@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import SocialLogin from "../../components/socialLogin";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -21,17 +22,43 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        reset();
-        Swal.fire({
-          position: "top-center",
-          icon: "success",
-          title: "User sign up successful",
-          showConfirmButton: false,
-          timer: 1000,
-        });
-        navigate("/");
+        updateUserProfile(data.name, data.PhotoURL)
+          .then(() => {
+            reset();
+            const userInfo = {
+              name : data.name,
+              email: data.email
+            }
+
+            fetch("http://localhost:5000/users",{
+              method: 'POST',
+              headers: {
+                'content-type' : 'application/json'
+              },
+              body: JSON.stringify(userInfo)
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "User added successful to DB",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+                navigate("/");
+              });
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
       })
       .catch((error) => {
+        Swal.fire(
+          'Auth/email-already-in-use',
+        )
         console.log(error.message);
       });
   };
@@ -137,6 +164,7 @@ const SignUp = () => {
             <p className="mb-6 ml-6">
               Already have an account? <Link to="/login">Log In</Link>
             </p>
+            <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>
