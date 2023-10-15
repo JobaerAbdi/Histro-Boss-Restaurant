@@ -2,12 +2,11 @@ import { FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../components/SectionTitle";
 import useCart from "../../hooks/useCart";
 import Swal from "sweetalert2";
-import { useContext } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 const MyCart = () => {
   const [cart, refetch] = useCart();
-  const {user} = useContext(AuthContext)
+  const {user} = useAuth()
   // console.log(cart);
   const  price= cart.reduce((sum, item) => sum + item.price, 0);
   const totalPrice = parseFloat(price).toFixed(2)
