@@ -2,9 +2,11 @@ import { FaBook, FaBookOpen, FaBookmark, FaCartPlus, FaHome, FaMoneyCheckAlt } f
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
+import useUser from "../hooks/useUser";
 
 const DashboardLayout = () => {
   const [cart] = useCart();
+  const [users] = useUser();
 
   // const isAdmin = true;
 
@@ -32,18 +34,18 @@ const DashboardLayout = () => {
         <ul className="menu p-4 w-80 min-h-full bg-[#D1A054] text-base-content">
           {isAdmin ? 
           <>
-          <li><NavLink to='/dashboard/adminuser'><FaHome></FaHome><a>Admin Home</a></NavLink></li>
-          <li><NavLink to='/dashboard/additems'><FaBookmark></FaBookmark><a>Add Items</a></NavLink></li>
-          <li><NavLink to='/dashboard/manageitems'><FaMoneyCheckAlt></FaMoneyCheckAlt><a>Manage Items</a></NavLink></li>
-          <li><NavLink to='/dashboard/adminbooking'><FaBookOpen></FaBookOpen><a>Manage Bookings</a></NavLink></li>
-          <li><NavLink to='/dashboard/allusers'><FaBook></FaBook><a>All Users</a></NavLink></li>
+          <li><NavLink to='/dashboard/adminUser'><FaHome></FaHome><a>Admin Home</a></NavLink></li>
+          <li><NavLink to='/dashboard/addItems'><FaBookmark></FaBookmark><a>Add Items</a></NavLink></li>
+          <li><NavLink to='/dashboard/manageItems'><FaMoneyCheckAlt></FaMoneyCheckAlt><a>Manage Items</a></NavLink></li>
+          <li><NavLink to='/dashboard/adminBooking'><FaBookOpen></FaBookOpen><a>Manage Bookings</a></NavLink></li>
+          <li><NavLink to='/dashboard/allUsers'><FaBook></FaBook><a>All Users <button className="btn btn-sm"><div className="badge badge-secondary">{users?.length || 0}</div></button></a></NavLink></li>
           </>
           : 
           <>
           <li><NavLink to='/dashboard/user'><FaHome></FaHome><a>User Home</a></NavLink></li>
           <li><NavLink to='/dashboard/reservation'><FaBookmark></FaBookmark><a>Reservation</a></NavLink></li>
           <li><NavLink to='/dashboard/payment'><FaMoneyCheckAlt></FaMoneyCheckAlt><a>Payment History</a></NavLink></li>
-          <li><NavLink to='/dashboard/mycart'><FaCartPlus></FaCartPlus><a>My Cart <div className="badge badge-secondary">{cart?.length || 0}</div></a></NavLink></li>
+          <li><NavLink to='/dashboard/myCart'><FaCartPlus></FaCartPlus><a>My Cart <div className="badge badge-primary">{cart?.length || 0}</div></a></NavLink></li>
           <li><NavLink to='/dashboard/review'><FaBookOpen></FaBookOpen><a>Add Review</a></NavLink></li>
           <li><NavLink to='/dashboard/booking'><FaBook></FaBook><a>My Booking</a></NavLink></li>
           </>}

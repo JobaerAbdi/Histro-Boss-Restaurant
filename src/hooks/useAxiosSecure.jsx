@@ -13,14 +13,14 @@ const useAxiosSecure = () => {
     const {logOut} = useAuth()
     const navigate = useNavigate()
 
-    useEffect((
+    useEffect(()=>{
         axiosSecure.interceptors.request.use((request)=> {
             const token = localStorage.getItem('access-token')
             if(token){
                 request.headers.authorization = `Bearer ${token}`
             }
             return request;
-          });
+          }),
         
         axiosSecure.interceptors.response.use((response)=> {
             return response;
@@ -34,8 +34,9 @@ const useAxiosSecure = () => {
                 await logOut();
                 navigate('/login');
             }
-          });
-    },[logOut, navigate])
+          })
+    },[navigate,logOut])
+   
     return [axiosSecure]
 };
 
